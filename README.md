@@ -2,6 +2,8 @@
 
 Lens extension to simplify update of deployment image tag:
 
+![Image details in deployment overview](imgs/tag.png)
+
 * Just open deployment details and save new image tag.
 
 ## Install
