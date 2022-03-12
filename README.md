@@ -6,6 +6,18 @@ Lens extension to simplify update of deployment image tag:
 
 ![Image details in deployment overview](imgs/tag.png)
 
+## Download .tgz
+
+### Github 
+https://github.com/ottimis/lens-version-update/releases/latest
+
+### NPM
+
+https://registry.npmjs.org/@ottimis/lens-version-update/-/lens-version-update-$VERSION.tgz
+
+Replace `$VERSION` with a real version like `0.0.3`.
+
+
 ## Install
 
 ```sh
@@ -42,14 +54,3 @@ rm ~/.k8slens/extensions/lens-version-update
 ```
 
 Restart Lens application.
-
-### Alternatives downloads
-
-#### Github 
-https://github.com/ottimis/lens-version-update/releases/latest
-
-#### NPM
-
-https://registry.npmjs.org/@ottimis/lens-version-update/-/lens-version-update-$VERSION.tgz
-
-Replace `$VERSION` with a real version like `0.0.3`.
