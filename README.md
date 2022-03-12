@@ -43,10 +43,6 @@ cd lens-version-update
 npm start
 ```
 
-## Test
-
-Open Lens application and navigate to a cluster. You should see "Hello World" in a menu.
-
 ## Uninstall
 
 ```sh
