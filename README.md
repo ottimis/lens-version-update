@@ -42,3 +42,14 @@ rm ~/.k8slens/extensions/lens-version-update
 ```
 
 Restart Lens application.
+
+### Alternatives downloads
+
+#### Github 
+https://github.com/ottimis/lens-version-update/releases/latest
+
+#### NPM
+
+https://registry.npmjs.org/@ottimis/lens-version-update/-/lens-version-update-$VERSION.tgz
+
+Replace `$VERSION` with a real version like `0.0.3`.
