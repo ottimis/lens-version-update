@@ -6,16 +6,26 @@ Lens extension to simplify update of deployment image tag:
 
 ![Image details in deployment overview](imgs/tag.png)
 
+## Installing
+
+Installation is easy, you just need to follow these steps:
+
+1. Go to the Extensions view (`CMD+SHIFT+E` on macOS).
+2. Enter the name of this extension, `@ottimis/lens-version-update`, into the Install Extension box.
+3. Click on the Install button.
+
+![Extension UI](./imgs/install.png)
+
 ## Download .tgz
 
 ### Github 
-https://github.com/ottimis/lens-version-update/releases/latest
+Github [Releases page](https://github.com/ottimis/lens-version-update/releases/latest)
 
 ### NPM
 
 https://registry.npmjs.org/@ottimis/lens-version-update/-/lens-version-update-$VERSION.tgz
 
-Replace `$VERSION` with a real version like `0.0.4`.
+Replace `$VERSION` with a real version like [https://registry.npmjs.org/@ottimis/lens-version-update/-/lens-version-update-0.0.5.tgz](https://registry.npmjs.org/@ottimis/lens-version-update/-/lens-version-update-0.0.5.tgz).
 
 
 ## Install

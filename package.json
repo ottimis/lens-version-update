@@ -21,8 +21,16 @@
   "scripts": {
     "start": "webpack --watch",
     "build": "npm run clean && webpack",
-    "clean": "rm -rf ./dist"
+    "clean": "rm -rf ./dist",
+    "prepublishOnly": "npm run build && npm version patch && git push && git push --tags"
   },
+  "files": [
+    "package.json",
+    "CHANGELOG.md",
+    "README.md",
+    "LICENSE",
+    "dist/"
+  ],
   "dependencies": {},
   "devDependencies": {
     "@k8slens/extensions": "^5.4.1",
