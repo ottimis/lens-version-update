@@ -1,6 +1,6 @@
 # Lens "Deployment Image Update" Extension
 
-Lens extension to simplify update of deployment image tag:
+Lens extension to simplify update of deployment image tag (containers & initContainers):
 
 * Just open deployment details and save new image tag.
 
@@ -25,7 +25,7 @@ Github [Releases page](https://github.com/ottimis/lens-version-update/releases/l
 
 https://registry.npmjs.org/@ottimis/lens-version-update/-/lens-version-update-$VERSION.tgz
 
-Replace `$VERSION` with a real version like [https://registry.npmjs.org/@ottimis/lens-version-update/-/lens-version-update-0.0.5.tgz](https://registry.npmjs.org/@ottimis/lens-version-update/-/lens-version-update-0.0.5.tgz).
+Replace `$VERSION` with a real version like [https://registry.npmjs.org/@ottimis/lens-version-update/-/lens-version-update-0.0.6.tgz](https://registry.npmjs.org/@ottimis/lens-version-update/-/lens-version-update-0.0.6.tgz).
 
 
 ## Install

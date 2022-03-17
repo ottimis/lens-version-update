@@ -4,14 +4,16 @@ import { Renderer } from "@k8slens/extensions";
 import React from "react";
 import { observable, makeObservable, autorun } from "mobx";
 import { disposeOnUnmount, observer } from "mobx-react";
+import { Deployment } from './classes/deployment';
 
 @observer
-export class DeploymentVersionUpdate extends React.Component<Renderer.Component.KubeObjectDetailsProps<Renderer.K8sApi.Deployment>> {
+export class DeploymentVersionUpdate extends React.Component<Renderer.Component.KubeObjectDetailsProps<Deployment>> {
 
   @observable isSaving = false;
-  @observable data = observable.map<number, { image: string, tag: string }>();
+  @observable containers = observable.map<number, { image: string, tag: string, name: string }>();
+  @observable initContainers = observable.map<number, { image: string, tag: string, name: string }>();
 
-  constructor(props: Renderer.Component.KubeObjectDetailsProps<Renderer.K8sApi.Deployment>) {
+  constructor(props: Renderer.Component.KubeObjectDetailsProps<Deployment>) {
     super(props);
     makeObservable(this);
   }
@@ -21,9 +23,13 @@ export class DeploymentVersionUpdate extends React.Component<Renderer.Component.
       autorun(() => {
         const { object } = this.props;
 
+        console.log(object);
         if (object) {
           object.spec.template.spec.containers.forEach((container, index) => {
-            this.data.set(index, { image: container.image.replace(/(?=:).*/, ""), tag: container.image.replace(/^.*?(?=:)/, "").substring(1) });
+            this.containers.set(index, { image: container.image.replace(/(?=:).*/, ""), tag: container.image.replace(/^.*?(?=:)/, "").substring(1), name: container.name });
+          });
+          object.spec.template.spec.initContainers.forEach((container, index) => {
+            this.initContainers.set(index, { image: container.image.replace(/(?=:).*/, ""), tag: container.image.replace(/^.*?(?=:)/, "").substring(1), name: container.name });
           });
         }
       }),
@@ -33,8 +39,11 @@ export class DeploymentVersionUpdate extends React.Component<Renderer.Component.
   save = async () => {
     const { object } = this.props;
 
-    for (const [index, value] of this.data) {
+    for (const [index, value] of this.containers) {
       object.spec.template.spec.containers[index].image = object.spec.template.spec.containers[index].image.replace(/:.*/, ':' + value.tag);
+    }
+    for (const [index, value] of this.initContainers) {
+      object.spec.template.spec.initContainers[index].image = object.spec.template.spec.initContainers[index].image.replace(/:.*/, ':' + value.tag);
     }
 
     try {
@@ -58,27 +67,58 @@ export class DeploymentVersionUpdate extends React.Component<Renderer.Component.
 
   render() {
     const { object } = this.props;
-    const containers = Array.from(this.data.entries());
+    const containers = Array.from(this.containers.entries());
+    const initContainers = Array.from(this.initContainers.entries());
 
     return (
       <div className="DeploymentVersionUpdateDetail">
         <Renderer.Component.KubeObjectMeta object={object} />
         {
-          containers.length > 0 && (
+          initContainers.length > 0 && (
             <>
-              <Renderer.Component.DrawerTitle title="Images" />
+              <Renderer.Component.DrawerTitle title="InitContainer images" />
               {
-                containers.map(([index, value]) => (
+                initContainers.map(([index, value]) => (
 
                   <div key={index} className="data">
-                    <div className="name">{value.image}</div>
+                    <div className="name">{value.name + ' - ' + value.image}</div>
                     <div className="flex gaps align-flex-start">
                       <Renderer.Component.Input
                         multiLine
                         theme="round-black"
                         className="box grow"
                         value={value.tag}
-                        onChange={v => this.data.set(index, { ...value, tag: v })}
+                        onChange={v => this.initContainers.set(index, { ...value, tag: v })}
+                      />
+                    </div>
+                  </div>
+                ))
+              }
+              <Renderer.Component.Button
+                primary
+                label="Save" waiting={this.isSaving}
+                className="save-btn"
+                onClick={this.save}
+              />
+            </>
+          )
+        }
+        {
+          containers.length > 0 && (
+            <>
+              <Renderer.Component.DrawerTitle title="Container images" />
+              {
+                containers.map(([index, value]) => (
+
+                  <div key={index} className="data">
+                    <div className="name">{value.name + ' - ' + value.image}</div>
+                    <div className="flex gaps align-flex-start">
+                      <Renderer.Component.Input
+                        multiLine
+                        theme="round-black"
+                        className="box grow"
+                        value={value.tag}
+                        onChange={v => this.containers.set(index, { ...value, tag: v })}
                       />
                     </div>
                   </div>
