@@ -25,7 +25,7 @@ Github [Releases page](https://github.com/ottimis/lens-version-update/releases/l
 
 https://registry.npmjs.org/@ottimis/lens-version-update/-/lens-version-update-$VERSION.tgz
 
-Replace `$VERSION` with a real version like [https://registry.npmjs.org/@ottimis/lens-version-update/-/lens-version-update-0.0.6.tgz](https://registry.npmjs.org/@ottimis/lens-version-update/-/lens-version-update-0.0.6.tgz).
+Replace `$VERSION` with a real version like [https://registry.npmjs.org/@ottimis/lens-version-update/-/lens-version-update-1.0.0.tgz](https://registry.npmjs.org/@ottimis/lens-version-update/-/lens-version-update-1.0.0.tgz).
 
 
 ## Install
