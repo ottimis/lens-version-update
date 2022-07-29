@@ -3,7 +3,7 @@ import { Renderer } from "@k8slens/extensions";
 interface IContainerProbe {
   httpGet?: {
     path?: string;
-    port: number;
+    port: string | number;
     scheme: string;
     host?: string;
   };
@@ -39,20 +39,20 @@ export declare class Deployment extends Renderer.K8sApi.Deployment {
           image: string;
           args?: string[];
           ports?: {
-            name: string;
+            name?: string;
             containerPort: number;
-            protocol: string;
+            protocol?: "UDP" | "TCP" | "SCTP";
           }[];
           env?: {
             name: string;
-            value: string;
+            value?: string;
           }[];
-          resources: {
+          resources?: {
             limits?: {
               cpu: string;
               memory: string;
             };
-            requests: {
+            requests?: {
               cpu: string;
               memory: string;
             };
@@ -64,29 +64,29 @@ export declare class Deployment extends Renderer.K8sApi.Deployment {
           livenessProbe?: IContainerProbe;
           readinessProbe?: IContainerProbe;
           startupProbe?: IContainerProbe;
-          terminationMessagePath: string;
-          terminationMessagePolicy: string;
-          imagePullPolicy: string;
+          terminationMessagePath?: string;
+          terminationMessagePolicy?: string;
+          imagePullPolicy?: string;
         }[];
-        containers: {
+        containers?: {
           name: string;
           image: string;
           args?: string[];
           ports?: {
-            name: string;
+            name?: string;
             containerPort: number;
-            protocol: string;
+            protocol?: "UDP" | "TCP" | "SCTP";
           }[];
           env?: {
             name: string;
-            value: string;
+            value?: string;
           }[];
-          resources: {
+          resources?: {
             limits?: {
               cpu: string;
               memory: string;
             };
-            requests: {
+            requests?: {
               cpu: string;
               memory: string;
             };
@@ -98,26 +98,26 @@ export declare class Deployment extends Renderer.K8sApi.Deployment {
           livenessProbe?: IContainerProbe;
           readinessProbe?: IContainerProbe;
           startupProbe?: IContainerProbe;
-          terminationMessagePath: string;
-          terminationMessagePolicy: string;
-          imagePullPolicy: string;
+          terminationMessagePath?: string;
+          terminationMessagePolicy?: string;
+          imagePullPolicy?: string;
         }[];
-        restartPolicy: string;
-        terminationGracePeriodSeconds: number;
-        dnsPolicy: string;
+        restartPolicy?: string;
+        terminationGracePeriodSeconds?: number;
+        dnsPolicy?: string;
         affinity?: any;
         nodeSelector?: {
           [selector: string]: string;
         };
-        serviceAccountName: string;
-        serviceAccount: string;
-        securityContext: {};
-        schedulerName: string;
+        serviceAccountName?: string;
+        serviceAccount?: string;
+        securityContext?: {};
+        schedulerName?: string;
         tolerations?: {
-          key: string;
-          operator: string;
-          effect: string;
-          tolerationSeconds: number;
+          key?: string;
+          operator?: string;
+          effect?: string;
+          tolerationSeconds?: number;
         }[];
         volumes?: {
           name: string;
