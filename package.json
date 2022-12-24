@@ -1,6 +1,6 @@
 {
   "name": "@ottimis/lens-version-update",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "author": "Ottimis Group, Srl <info@ottimis.com> (https://ottimis.com)",
   "maintainers": [
     {
@@ -22,7 +22,7 @@
     "start": "webpack --watch",
     "build": "npm run clean && webpack",
     "clean": "rm -rf ./dist",
-    "prepublishOnly": "npm run build && npm version patch && git push && git push --tags"
+    "prepublishOnly": "npm run build"
   },
   "files": [
     "package.json",
@@ -31,6 +31,7 @@
     "LICENSE",
     "dist/"
   ],
+  "private": false,
   "devDependencies": {
     "@k8slens/extensions": "^6.0.0",
     "@types/node": "^17.0.21",
