@@ -88,7 +88,7 @@ export class DeploymentVersionUpdate extends React.Component<Renderer.Component.
         {
           initContainers.length > 0 && (
             <>
-              <Renderer.Component.DrawerTitle children="InitContainer images" />
+              <Renderer.Component.DrawerTitle children={`InitContainer image${initContainers.length > 1 ? 's' : ''}`} />
               {
                 initContainers.map(([index, value]) => (
 
@@ -118,7 +118,7 @@ export class DeploymentVersionUpdate extends React.Component<Renderer.Component.
         {
           containers.length > 0 && (
             <>
-              <Renderer.Component.DrawerTitle children="Container images" />
+              <Renderer.Component.DrawerTitle children={`Container image${containers.length > 1 ? 's' : ''}`} />
               {
                 containers.map(([index, value]) => (
 
