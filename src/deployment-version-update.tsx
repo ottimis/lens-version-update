@@ -25,8 +25,6 @@ export class DeploymentVersionUpdate extends React.Component<Renderer.Component.
       autorun(() => {
         const { object } = this.props;
 
-        console.log(object);
-
         const parse = (container: Renderer.K8sApi.IPodContainer) => {
           const match = container.image.match(imageRegex);
           return {

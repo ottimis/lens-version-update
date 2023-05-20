@@ -1,4 +1,4 @@
-import "./cronjob-version-update.scss";
+import "./statefulset-version-update.scss";
 
 import { Renderer } from "@k8slens/extensions";
 import React from "react";
@@ -9,13 +9,13 @@ import { disposeOnUnmount, observer } from "mobx-react";
 const imageRegex = /^(?<name>(?:(?<domain>(?:localhost|[\w-]+(?:\.[\w-]+)+)(?::\d+)?|\w+:\d+)\/)?(?<image>[a-z0-9_.-]+(?:\/[a-z0-9_.-]+)*))(?::(?<tag>\w[\w.-]{0,127}))?(?:@(?<digest>[A-Za-z][A-Za-z0-9]*(?:[+.-_][A-Za-z][A-Za-z0-9]*)*:[0-9a-fA-F]{32,}))?$/;
 
 @observer
-export class CronJobVersionUpdate extends React.Component<Renderer.Component.KubeObjectDetailsProps<Renderer.K8sApi.CronJob>> {
+export class StatefulSetVersionUpdate extends React.Component<Renderer.Component.KubeObjectDetailsProps<Renderer.K8sApi.StatefulSet>> {
 
   @observable isSaving = false;
   @observable containers = observable.map<number, { image: string, tag: string, name: string }>();
   @observable initContainers = observable.map<number, { image: string, tag: string, name: string }>();
 
-  constructor(props: Renderer.Component.KubeObjectDetailsProps<Renderer.K8sApi.CronJob>) {
+  constructor(props: Renderer.Component.KubeObjectDetailsProps<Renderer.K8sApi.StatefulSet>) {
     super(props);
     makeObservable(this);
   }
@@ -35,12 +35,12 @@ export class CronJobVersionUpdate extends React.Component<Renderer.Component.Kub
         }
 
         if (object) {
-          object.spec.jobTemplate.spec.template.spec.containers.forEach((container, index) => {
+          object.spec.template.spec.containers?.forEach((container, index) => {
             this.containers.set(index, parse(container));
           });
-          // object.spec.jobTemplate.spec.initContainers.forEach((container, index) => {
-          //   this.initContainers.set(index, parse(container));
-          // });
+          object.spec.template.spec.initContainers?.forEach((container, index) => {
+            this.initContainers.set(index, parse(container));
+          });
         }
       }),
     ]);
@@ -50,15 +50,15 @@ export class CronJobVersionUpdate extends React.Component<Renderer.Component.Kub
     const { object } = this.props;
 
     for (const [index, value] of this.containers) {
-      object.spec.jobTemplate.spec.template.spec.containers[index].image = value.image + ':' + value.tag;
+      object.spec.template.spec.containers[index].image = value.image + ':' + value.tag;
     }
-    // for (const [index, value] of this.initContainers) {
-    //   object.spec.template.spec.template.spec.initContainers[index].image = value.image + ':' + value.tag;
-    // }
+    for (const [index, value] of this.initContainers) {
+      object.spec.template.spec.initContainers[index].image = value.image + ':' + value.tag;
+    }
 
     try {
       this.isSaving = true;
-      await Renderer.K8sApi.deploymentApi.update({
+      await Renderer.K8sApi.statefulSetApi.update({
         namespace: object.getNs(),
         name: object.getName(),
       }, object);
@@ -78,12 +78,12 @@ export class CronJobVersionUpdate extends React.Component<Renderer.Component.Kub
   render() {
     const { object } = this.props;
     const containers = Array.from(this.containers.entries());
-    // const initContainers = Array.from(this.initContainers.entries());
+    const initContainers = Array.from(this.initContainers.entries());
 
     return (
-      <div className="CronJobVersionUpdateDetail">
+      <div className="StatefulSetVersionUpdateDetail">
         <Renderer.Component.KubeObjectMeta object={object} />
-        {/* {
+        {
           initContainers.length > 0 && (
             <>
               <Renderer.Component.DrawerTitle children={`InitContainer image${initContainers.length > 1 ? 's' : ''}`} />
@@ -112,7 +112,7 @@ export class CronJobVersionUpdate extends React.Component<Renderer.Component.Kub
               />
             </>
           )
-        } */}
+        }
         {
           containers.length > 0 && (
             <>
