@@ -82,7 +82,6 @@ export class CronJobVersionUpdate extends React.Component<Renderer.Component.Kub
 
     return (
       <div className="CronJobVersionUpdateDetail">
-        <Renderer.Component.KubeObjectMeta object={object} />
         {/* {
           initContainers.length > 0 && (
             <>

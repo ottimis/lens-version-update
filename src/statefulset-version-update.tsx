@@ -82,7 +82,6 @@ export class StatefulSetVersionUpdate extends React.Component<Renderer.Component
 
     return (
       <div className="StatefulSetVersionUpdateDetail">
-        <Renderer.Component.KubeObjectMeta object={object} />
         {
           initContainers.length > 0 && (
             <>
