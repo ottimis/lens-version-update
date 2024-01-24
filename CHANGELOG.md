@@ -1,5 +1,13 @@
 # ChangeLog
 
+## v1.2.1
+
+- Removed incorrect information.
+
+## v1.2.0
+
+- Added support for StatefulSets.
+
 ## v1.1.0
 
 - Added support for CronJobs.
