@@ -82,7 +82,6 @@ export class DeploymentVersionUpdate extends React.Component<Renderer.Component.
 
     return (
       <div className="DeploymentVersionUpdateDetail">
-        <Renderer.Component.KubeObjectMeta object={object} />
         {
           initContainers.length > 0 && (
             <>
